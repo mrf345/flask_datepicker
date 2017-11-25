@@ -11,9 +11,11 @@
 `git clone https://github.com/mrf345/flask_datepicker.git`<br />
 `python setup.py install`
 ## Run it :
-`from flask import Flask` <br />
+`from flask import Flask, render_template` <br />
+`from flask_bootstrap import Bootstrap` <br />
 `from flask_datepicker import datepicker` <br />
 `app = Flask(__name__)` <br />
+`Bootstrap(app)` <br />
 `datepicker(app)` <br />
 #### inside the template
 `{% extends 'bootstrap/base.html'}` <br />
