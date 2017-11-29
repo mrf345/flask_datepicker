@@ -1,5 +1,5 @@
 """
-Flask-Formspree
+Flask-Datepicker
 -------------
 
 A Flask extension to add Jquery-UI javascript date picker into the template,

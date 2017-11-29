@@ -40,30 +40,27 @@ class datepicker(object):
 
     def loader(self, theme=None, random_theme=False, random_remember=True):
         html = ""
-        for i, n in enumerate(['js', 'css']):
+        for i, n in enumerate(('js', 'css')):
             if self.local == []:
-                themes = ['base', 'black-tie', 'blitzer' 'cupertino',
+                themes = ('base', 'black-tie', 'blitzer' 'cupertino',
                           'dark-hive', 'dot-luv', 'eggplant', 'excite-bike',
                           'flick', 'hot-sneaks', 'humanity', 'le-frog',
                           'mint-choc', 'overcast', 'pepper-grinder', 'redmond',
                           'smoothness', 'south-street', 'start', 'sunny',
                           'swanky-purse', 'trontastic', 'ui-darkness',
-                          'ui-lightness', 'vader']
+                          'ui-lightness', 'vader')
                 if theme is not None and not random_theme:
                     if theme not in themes:
                         raise(
                             TypeError(
                                 "datepicker.picker(theme=) must be one" +
                                 " of jquery-ui offical themes"))
-                if random_theme:
-                    theme = choice(themes)
-                    self.random_theme = theme
-                elif random_remember:
-                    if self.random_theme is None:
-                        self.random_theme = choice(themes)
-                    theme = self.random_theme
-                links = ['https://code.jquery.com/ui/1.12.1/themes/%s' % theme +
-                         '/jquery-ui.css',
+                theme = choice(themes) if (random_theme or
+                                           random_remember and
+                                           self.random_theme is None
+                                           ) else self.random_theme
+                links = ['https://code.jquery.com/ui/1.12.1/themes/' +
+                         '%s/jquery-ui.css' % theme,
                          'https://code.jquery.com/ui/1.12.1/jquery-ui.min.js']
             else:
                 links = self.local
