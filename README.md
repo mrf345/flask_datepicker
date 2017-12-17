@@ -24,7 +24,7 @@ datepicker(app)
 
 ```jinja
 
-{% extends 'bootstrap/base.html'}
+{% extends 'bootstrap/base.html' %}
 {% block scripts %}
   {{ super() }}
   {{ datepicker.loader() }}
