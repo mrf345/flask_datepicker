@@ -6,15 +6,16 @@ A Flask extension to add Jquery-UI javascript date picker into the template,
 it makes adding and configuring multiple date pickers at a time much easier
 and less time consuming
 
+How-to: https://github.com/mrf345/flask_datepicker/
 """
 from setuptools import setup
 
 
 setup(
     name='Flask-Datepicker',
-    version='0.1',
+    version='0.2',
     url='https://github.com/mrf345/flask_datepicker/',
-    download_url='https://github.com/mrf345/flask_datepicker/archive/0.1.tar.gz',
+    download_url='https://github.com/mrf345/flask_datepicker/archive/0.2.tar.gz',
     license='MIT',
     author='Mohamed Feddad',
     author_email='mrf345@gmail.com',

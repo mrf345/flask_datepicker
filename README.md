@@ -24,7 +24,7 @@ datepicker(app)
 
 ```jinja
 
-{% extends 'bootstrap/base.html'}
+{% extends 'bootstrap/base.html' %}
 {% block scripts %}
   {{ super() }}
   {{ datepicker.loader() }}
@@ -72,9 +72,8 @@ datepicker.loader(random_remember=True)
 ##### - dates settings:
 ##### The accepted arguments to be passed to the `datepicker.picker()` function are as follow:
 ```python
-def picker(self, id=".datepicker",
-                  defaultDate='',
-                  dateFormat='yy-mm-dd',
-                  maxDate='',
-                  minDate=''):
+def picker(self, id=".datepicker", # identifier will be passed to Jquery to select element
+                  dateFormat='yy-mm-dd', # can't be explained more !
+                  maxDate='2018-12-30', # maximum date to select from. Make sure to follow the same format yy-mm-dd
+                  minDate='2017-12-01'): # minimum date
 ```
