@@ -9,6 +9,7 @@
 `pip install Flask-Datepicker` <br />
 #### - or from github
 `git clone https://github.com/mrf345/flask_datepicker.git`<br />
+`cd flask_datepicker` <br />
 `python setup.py install`
 ## Run it :
 ```python
