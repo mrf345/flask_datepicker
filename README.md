@@ -22,7 +22,7 @@ Bootstrap(app)
 datepicker(app)
 ```
 
-#### Inside jinja template:
+#### - Inside jinja template:
 ```jinja
 {% extends 'bootstrap/base.html' %}
 {% block scripts %}
