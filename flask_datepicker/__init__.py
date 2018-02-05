@@ -1,4 +1,4 @@
-from flask import current_app, Markup
+from flask import Markup
 from os import path
 from random import choice
 try:

@@ -1,8 +1,5 @@
-# flask_datepicker
-### A [Flask][a29e93c5] extension for [Jquery-ui javascript date picker][3dec2ee7], it makes adding and customizing multiple date pickers simpler and less time consuming.
-
-  [a29e93c5]: http://flask.pocoo.org/ "Flask website"
-  [3dec2ee7]: https://jqueryui.com/datepicker/ "Jquery-ui datepicker"
+<h1 align='center'> flask_datepicker </h1>
+<h3 align='center'>A Flask extension for Jquery-ui date picker, it makes adding and customizing multiple date pickers simpler and less time consuming.</h3>
 
 ## Install it :
 #### - With pip
@@ -78,3 +75,8 @@ def picker(self, id=".datepicker", # identifier will be passed to Jquery to sele
                   maxDate='2018-12-30', # maximum date to select from. Make sure to follow the same format yy-mm-dd
                   minDate='2017-12-01'): # minimum date
 ```
+
+## Credit:
+> - [Datepicker][1311353e]: jQuery-ui date picker.
+
+  [1311353e]: https://jqueryui.com/datepicker/ "jQuery-UI website"
