@@ -71,6 +71,7 @@ _List of available themes :_ <br />
 datepicker(app=app, local=['static/js/jquery-ui.js', 'static/css/jquery-ui.css'])
 ```
 _The order in-which the items of list are passed is not of importance, it will be auto detected via file extension_
+
 [25530337]: https://code.jquery.com/ui/ "Jquery-ui CDN"
 
 ## Credit:
