@@ -1,5 +1,5 @@
 from flask import Markup
-from os import path
+from os import path, name as osName
 from random import choice
 try:
     from flask import _app_ctx_stack as stack
@@ -81,10 +81,21 @@ class datepicker(object):
                          'https://code.jquery.com/ui/1.12.1/jquery-ui.min.js']
             else:
                 links = self.local
+                # ISSUE 1 : windows os path
+                # if windows used and windows path not used.
+                # just to pass the isfile check
+                if osName == 'nt':
+                    for linkIndex, link in enumerate(links):
+                        links[linkIndex] = link.replace('/', '\\')
                 # checking if Jquery UI files exist
                 if not path.isfile(links[0]) and not path.isfile(links[1]):
                     raise(FileNotFoundError(
                         "datepicker.loader() file not found "))
+                # ISSUE 1 : windows os path
+                # if windows used revert path to web-like path
+                if osName == 'nt':
+                    for linkIndex, link in enumerate(links):
+                        links[linkIndex] = link.replace('\\', '/')
             tags = ['<script src="%s"></script>\n',
                     '<link href="%s" rel="stylesheet">\n']
             html += tags[i] % [  # didn't know that .endwith() was a thing
