@@ -119,7 +119,7 @@ class datepicker(object):
             ss = s.split('-') if len(s.split('-')) == 3 else []
             ss = 'new Date("%s","%s","%s")' % (ss[0],
                                                ss[1],
-                                               ss[2]) if ss != [] else ""
+                                               ss[2]) if ss != [] else "null"
             date_limits.append(ss)
         return Markup(" ".join(['<script>',
                                 '$("%s").datepicker({' % id,
