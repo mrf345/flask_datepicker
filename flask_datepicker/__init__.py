@@ -81,21 +81,25 @@ class datepicker(object):
                          'https://code.jquery.com/ui/1.12.1/jquery-ui.min.js']
             else:
                 links = self.local
-                # ISSUE 1 : windows os path
-                # if windows used and windows path not used.
-                # just to pass the isfile check
-                if osName == 'nt':
-                    for linkIndex, link in enumerate(links):
-                        links[linkIndex] = link.replace('/', '\\')
+                def togglePath(rev=False, links=links):
+                    """
+                        Function to fix windows OS relative path issue
+                        ISSUE 1 : windows os path
+                        if windows used and windows path not used.
+                    """
+                    if osName == 'nt':
+                        order = ['/', '\\']
+                        if rev:
+                            order.reverse()
+                        for linkIndex, link in enumerate(links):
+                            links[linkIndex] = link.replace(order[0], order[1])
+                
+                togglePath(False)
                 # checking if Jquery UI files exist
                 if not path.isfile(links[0]) and not path.isfile(links[1]):
                     raise(FileNotFoundError(
                         "datepicker.loader() file not found "))
-                # ISSUE 1 : windows os path
-                # if windows used revert path to web-like path
-                if osName == 'nt':
-                    for linkIndex, link in enumerate(links):
-                        links[linkIndex] = link.replace('\\', '/')
+                togglePath(True)
             tags = ['<script src="%s"></script>\n',
                     '<link href="%s" rel="stylesheet">\n']
             html += tags[i] % [  # didn't know that .endwith() was a thing
@@ -133,8 +137,9 @@ class datepicker(object):
                                                ss[2]) if ss != [] else "null"
             date_limits.append(ss)
         return Markup(" ".join(['<script>',
+                                '$(document).ready(function() {'
                                 '$("%s").datepicker({' % id,
                                 'dateFormat: "%s",' % dateFormat,
                                 'maxDate: %s,' % date_limits[0],
                                 'minDate: %s' % date_limits[1],
-                                '});', '</script>']))
+                                '});})', '</script>']))
