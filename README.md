@@ -52,11 +52,7 @@ def picker(self, id=".datepicker", # identifier will be passed to Jquery to sele
 ```python
 datepicker.loader(theme="base")
 ```
- _Or let it chose randomly_
-```python
-datepicker.loader(random_theme=True)
-```
-_This will chose new random theme with each reload of the page. To make it remember the random choice, use instead_
+_If there is not a theme selected, the extension will select a new random theme with each reload of the page to be used. To make it remember the random choice, pass :_
 ```python
 datepicker.loader(random_remember=True)
 ```

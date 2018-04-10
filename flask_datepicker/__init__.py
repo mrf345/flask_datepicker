@@ -46,11 +46,10 @@ class datepicker(object):
         def inject_vars():
             return dict(datepicker=self)
 
-    def loader(self, theme=None, random_theme=False, random_remember=True):
+    def loader(self, theme=None, random_remember=False):
         """
         Function that allows customizing Jquery UI upon loading it
         @param: theme it takes string of Jquery UI theme name (default None).
-        @param: random_theme to allow the extension to choose a random theme
         for Jquery UI (default True).
         @param: random_remember to remember the random choice, unless you want
         it to load new theme with each reload (default True).
@@ -65,16 +64,15 @@ class datepicker(object):
                           'smoothness', 'south-street', 'start', 'sunny',
                           'swanky-purse', 'trontastic', 'ui-darkness',
                           'ui-lightness', 'vader')  # Jquery UI offical themes
-                if theme is not None and not random_theme:
+                # ISSUE 2: fix random theme selection
+                if self.random_theme is None: self.random_theme = choice(themes)
+                if theme is None: theme = self.random_theme if random_remember else choice(themes)
+                else:
                     if theme not in themes:
                         raise(
                             TypeError(
                                 "datepicker.picker(theme=) must be one" +
                                 " of jquery-ui offical themes"))
-                theme = choice(themes) if (random_theme or
-                                           random_remember and
-                                           self.random_theme is None
-                                           ) else self.random_theme
                 # choosing randomly, if conditions allow, otherwise if not
                 links = ['https://code.jquery.com/ui/1.12.1/themes/' +
                          '%s/jquery-ui.css' % theme,

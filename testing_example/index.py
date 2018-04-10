@@ -1,5 +1,7 @@
-## Some junk to solve loading module path from parent dir
-import sys, os
+from flask import Flask, render_template
+# Some junk to solve loading module path from parent dir
+import sys
+import os
 spliter = '\\' if os.name == 'nt' else '/'
 sys.path.append(
     spliter.join(
@@ -8,16 +10,16 @@ sys.path.append(
         )[:-1]
     )
 )
-## End of junk
-
-from flask import Flask, render_template
+# End of junk
 from flask_datepicker import datepicker
 
 app = Flask(__name__, template_folder='.')
 datepicker(app)
 
+
 @app.route('/')
 def root():
     return render_template('index.html')
+
 
 app.run(debug=True)
