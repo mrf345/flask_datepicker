@@ -1,10 +1,6 @@
 from flask import Markup
 from os import path, name as osName
 from random import choice
-try:
-    from flask import _app_ctx_stack as stack
-except ImportError:
-    from flask import _request_ctx_stack as stack
 
 
 class datepicker(object):
@@ -65,8 +61,10 @@ class datepicker(object):
                           'swanky-purse', 'trontastic', 'ui-darkness',
                           'ui-lightness', 'vader')  # Jquery UI offical themes
                 # ISSUE 2: fix random theme selection
-                if self.random_theme is None: self.random_theme = choice(themes)
-                if theme is None: theme = self.random_theme if random_remember else choice(themes)
+                if self.random_theme is None:
+                    self.random_theme = choice(themes)
+                if theme is None:
+                    theme = self.random_theme if random_remember else choice(themes)
                 else:
                     if theme not in themes:
                         raise(
@@ -79,6 +77,7 @@ class datepicker(object):
                          'https://code.jquery.com/ui/1.12.1/jquery-ui.min.js']
             else:
                 links = self.local
+
                 def togglePath(rev=False, links=links):
                     """
                         Function to fix windows OS relative path issue
@@ -91,7 +90,7 @@ class datepicker(object):
                             order.reverse()
                         for linkIndex, link in enumerate(links):
                             links[linkIndex] = link.replace(order[0], order[1])
-                
+
                 togglePath(False)
                 # checking if Jquery UI files exist
                 if not path.isfile(links[0]) and not path.isfile(links[1]):
