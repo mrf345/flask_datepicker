@@ -1,7 +1,10 @@
 from flask import Markup
 from os import path, name as osName
 from random import choice
-
+# Fixing file not found for py2
+from sys import version_info
+if version_info.major == 2:
+    FileNotFoundError = IOError
 
 class datepicker(object):
     def __init__(self, app=None, local=[]):
