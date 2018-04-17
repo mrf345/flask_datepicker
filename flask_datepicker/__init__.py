@@ -9,26 +9,26 @@ if version_info.major == 2:
 class datepicker(object):
     def __init__(self, app=None, local=[]):
         """
-        Initiating the extension and seting up important varibles
+        Initiating the extension and seting up important variables
         @param: app flask application instance (default None).
         @param: local contains Jquery UI local sourcecode files (default [])
         """
         self.app = app
         self.local = local
-        self.random_theme = None  # to change if recieved random_theme=True
+        self.random_theme = None  # to change if received random_theme=True
         if self.app is not None:
             self.init_app(app)
         else:
-            # throwing error for not recieving app
+            # throwing error for not receiving app
             raise(AttributeError("must pass app to datepicker(app=)"))
         if self.local != []:
-            # cheacking the length of the recieved list and throwing error
+            # checking the length of the received list and throwing error
             if len(self.local) != 2:
                 raise(
                     TypeError(
                         "datepicker(local=) requires a list of" +
                         " two files jquery-ui.js and jquery-ui.css"))
-        self.injectem()  # resposible of injecting modals into the template
+        self.injectThem()  # responsible of injecting modals into the template
 
     def init_app(self, app):
         if hasattr(app, 'teardown_appcontext'):
@@ -39,7 +39,7 @@ class datepicker(object):
     def teardown(self, exception):
         pass
 
-    def injectem(self):
+    def injectThem(self):
         """ datepicker injecting itself into the template as datepicker """
         @self.app.context_processor
         def inject_vars():
@@ -103,7 +103,7 @@ class datepicker(object):
             tags = ['<script src="%s"></script>\n',
                     '<link href="%s" rel="stylesheet">\n']
             html += tags[i] % [  # didn't know that .endwith() was a thing
-                l for l in links if l.split(  # stiil like it more this way
+                l for l in links if l.split(  # still like it more this way
                     '.')[len(l.split('.')) - 1] == n][0]
         return Markup(html)  # making sure html safe
 
@@ -112,8 +112,8 @@ class datepicker(object):
                maxDate='',
                minDate=''):
         """
-        datepicker initilizer, it produces a javascript code to load the plugin
-        witn passed arguements
+        datepicker initializer, it produces a javascript code to load the plugin
+        with passed arguments
         @param: id the identifier which jquery will assign datapickers to
         (default '.datepicker').
         @param: dateFormat the format of a date ! (default 'yy-mm-dd').
