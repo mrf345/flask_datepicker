@@ -100,8 +100,8 @@ class datepicker(object):
                     raise(FileNotFoundError(
                         "datepicker.loader() file not found "))
                 togglePath(True)
-            tags = ['<script src="%s"></script>\n',
-                    '<link href="%s" rel="stylesheet">\n']
+            tags = ['<script src="/%s"></script>\n',
+                    '<link href="/%s" rel="stylesheet">\n']
             html += tags[i] % [  # didn't know that .endwith() was a thing
                 l for l in links if l.split(  # still like it more this way
                     '.')[len(l.split('.')) - 1] == n][0]
