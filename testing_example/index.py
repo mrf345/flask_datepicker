@@ -15,7 +15,7 @@ sys.path.append(
 from flask_datepicker import datepicker
 
 app = Flask(__name__, template_folder='.')
-datepicker(app)
+datepicker(app, local=['static/jquery-ui.min.js', 'static/jquery-ui.min.css'])
 
 
 @app.route('/')
@@ -23,4 +23,4 @@ def root():
     return render_template('index.html')
 
 
-app.run(debug=True)
+app.run(debug=True, port=4000)

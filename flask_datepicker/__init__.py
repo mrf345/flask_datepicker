@@ -62,7 +62,7 @@ class datepicker(object):
                           'mint-choc', 'overcast', 'pepper-grinder', 'redmond',
                           'smoothness', 'south-street', 'start', 'sunny',
                           'swanky-purse', 'trontastic', 'ui-darkness',
-                          'ui-lightness', 'vader')  # Jquery UI offical themes
+                          'ui-lightness', 'vader')  # Jquery UI official themes
                 # ISSUE 2: fix random theme selection
                 if self.random_theme is None:
                     self.random_theme = choice(themes)
@@ -73,10 +73,9 @@ class datepicker(object):
                         raise(
                             TypeError(
                                 "datepicker.picker(theme=) must be one" +
-                                " of jquery-ui offical themes"))
+                                " of jquery-ui official themes"))
                 # choosing randomly, if conditions allow, otherwise if not
-                links = ['https://code.jquery.com/ui/1.12.1/themes/' +
-                         '%s/jquery-ui.css' % theme,
+                links = ['https://code.jquery.com/ui/1.12.1/themes/%s/jquery-ui.css' % theme,
                          'https://code.jquery.com/ui/1.12.1/jquery-ui.min.js']
             else:
                 links = self.local
@@ -100,10 +99,13 @@ class datepicker(object):
                     raise(FileNotFoundError(
                         "datepicker.loader() file not found "))
                 togglePath(True)
-                for link in links:
-                    links.append('/' + links.pop())
-            tags = ['<script src="%s"></script>\n',
-                    '<link href="%s" rel="stylesheet">\n']
+            tags = [
+                '<script src="%s"></script>\n',
+                '<link href="%s" rel="stylesheet">\n'
+                ] if self.local == [] else [
+                '<script src="/%s"></script>\n',
+                '<link href="/%s" rel="stylesheet">\n'
+                ]
             html += tags[i] % [  # didn't know that .endwith() was a thing
                 l for l in links if l.split(  # still like it more this way
                     '.')[len(l.split('.')) - 1] == n][0]
