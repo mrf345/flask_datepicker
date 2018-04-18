@@ -13,9 +13,9 @@ from setuptools import setup
 
 setup(
     name='Flask-Datepicker',
-    version='0.7',
+    version='0.8',
     url='https://github.com/mrf345/flask_datepicker/',
-    download_url='https://github.com/mrf345/flask_datepicker/archive/0.7.tar.gz',
+    download_url='https://github.com/mrf345/flask_datepicker/archive/0.8.tar.gz',
     license='MIT',
     author='Mohamed Feddad',
     author_email='mrf345@gmail.com',
