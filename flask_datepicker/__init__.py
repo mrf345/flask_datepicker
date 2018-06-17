@@ -114,7 +114,9 @@ class datepicker(object):
     def picker(self, id=".datepicker",
                dateFormat='yy-mm-dd',
                maxDate='',
-               minDate=''):
+               minDate='',
+               btnsId='.btnId'
+               ):
         """
         datepicker initializer, it produces a javascript code to load the plugin
         with passed arguments
@@ -125,11 +127,14 @@ class datepicker(object):
         (default '').
         @param: minDate Example:2016-01-01 the minimum selectable date
         (default: '').
+        @param: btnsId css class assigned to the buttons if needed (default '.btnId')
         """
         for h, a in {'id': id,
                      'dateFormat': dateFormat,
                      'maxDate': maxDate,
-                     'minDate': minDate}.items():
+                     'minDate': minDate,
+                     'btnsId': btnsId
+                     }.items():
             if not isinstance(a, str):
                 raise(TypeError("datepicker.picker(%s) takes string" % h))
         date_limits = []
@@ -141,9 +146,14 @@ class datepicker(object):
                                                ss[2]) if ss != [] else "null"
             date_limits.append(ss)
         return Markup(" ".join(['<script>',
-                                '$(document).ready(function() {'
-                                '$("%s").datepicker({' % id,
+                                '$(document).ready(function() {',
+                                'var EL = $("%s");' % btnsId,
+                                '$("%s").each(function () {' % id,
+                                'var toF = this; $(this).datepicker({',
                                 'dateFormat: "%s",' % dateFormat,
                                 'maxDate: %s,' % date_limits[0],
-                                'minDate: %s' % date_limits[1],
-                                '});})', '</script>']))
+                                'minDate: %s});' % date_limits[1],
+                                'if (EL.length > 0) { $(EL[0]).click(',
+                                'function (ev) { ev.preventDefault();', 
+                                '$(toF).focus() }); EL = EL.slice(1)',
+                                '};});})', '</script>']))
