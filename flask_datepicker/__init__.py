@@ -127,7 +127,8 @@ class datepicker(object):
         (default '').
         @param: minDate Example:2016-01-01 the minimum selectable date
         (default: '').
-        @param: btnsId css class assigned to the buttons if needed (default '.btnId')
+        @param: btnsId id assigned to instigating buttons if needed 
+        (default '.btnId')
         """
         for h, a in {'id': id,
                      'dateFormat': dateFormat,

@@ -44,7 +44,9 @@ datepicker(app)
 def picker(self, id=".datepicker", # identifier will be passed to Jquery to select element
                   dateFormat='yy-mm-dd', # can't be explained more !
                   maxDate='2018-12-30', # maximum date to select from. Make sure to follow the same format yy-mm-dd
-                  minDate='2017-12-01'): # minimum date
+                  minDate='2017-12-01',
+                  btnsId='.btnId' # id assigned to instigating buttons if needed
+                  ): # minimum date
 ```
 
 ##### - Themes
