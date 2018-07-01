@@ -1,4 +1,8 @@
 <h1 align='center'> flask_datepicker </h1>
+<p align='center'>
+<a href='https://travis-ci.com/mrf345/flask_datepicker'><img src='https://travis-ci.com/mrf345/flask_datepicker.svg?branch=master' /></a>
+<a href='https://coveralls.io/github/mrf345/flask_datepicker?branch=master'><img src='https://coveralls.io/repos/github/mrf345/flask_datepicker/badge.svg?branch=master' alt='Coverage Status' /></a>
+</p>
 <h3 align='center'>A Flask extension for Jquery-ui date picker, it makes adding and customizing multiple date pickers simpler and less time consuming.</h3>
 
 ## Install:
