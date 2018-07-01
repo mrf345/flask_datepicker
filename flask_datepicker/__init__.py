@@ -7,18 +7,17 @@ if version_info.major == 2:
     FileNotFoundError = IOError
 
 class datepicker(object):
-    def __init__(self, app=None, local=[]):
+    def __init__(self, app=None, local=[], testing=False):
         """
         Initiating the extension and seting up important variables
         @param: app flask application instance (default None).
         @param: local contains Jquery UI local sourcecode files (default [])
         """
+        self.testing = testing
         self.app = app
         self.local = local
         self.random_theme = None  # to change if received random_theme=True
-        if self.app is not None:
-            self.init_app(app)
-        else:
+        if self.app is None:
             # throwing error for not receiving app
             raise(AttributeError("must pass app to datepicker(app=)"))
         if self.local != []:
@@ -29,15 +28,13 @@ class datepicker(object):
                         "datepicker(local=) requires a list of" +
                         " two files jquery-ui.js and jquery-ui.css"))
         self.injectThem()  # responsible of injecting modals into the template
-
-    def init_app(self, app):
-        if hasattr(app, 'teardown_appcontext'):
-            app.teardown_appcontext(self.teardown)
-        else:
-            app.teardown_request(self.teardown)
-
-    def teardown(self, exception):
-        pass
+        self.themes = ('base', 'black-tie', 'blitzer' 'cupertino',
+        'dark-hive', 'dot-luv', 'eggplant', 'excite-bike',
+        'flick', 'hot-sneaks', 'humanity', 'le-frog',
+        'mint-choc', 'overcast', 'pepper-grinder', 'redmond',
+        'smoothness', 'south-street', 'start', 'sunny',
+        'swanky-purse', 'trontastic', 'ui-darkness',
+        'ui-lightness', 'vader')  # Jquery UI official themes
 
     def injectThem(self):
         """ datepicker injecting itself into the template as datepicker """
@@ -56,20 +53,13 @@ class datepicker(object):
         html = ""  # html tags will end-up here
         for i, n in enumerate(('js', 'css')):
             if self.local == []:
-                themes = ('base', 'black-tie', 'blitzer' 'cupertino',
-                          'dark-hive', 'dot-luv', 'eggplant', 'excite-bike',
-                          'flick', 'hot-sneaks', 'humanity', 'le-frog',
-                          'mint-choc', 'overcast', 'pepper-grinder', 'redmond',
-                          'smoothness', 'south-street', 'start', 'sunny',
-                          'swanky-purse', 'trontastic', 'ui-darkness',
-                          'ui-lightness', 'vader')  # Jquery UI official themes
                 # ISSUE 2: fix random theme selection
                 if self.random_theme is None:
-                    self.random_theme = choice(themes)
+                    self.random_theme = choice(self.themes)
                 if theme is None:
-                    theme = self.random_theme if random_remember else choice(themes)
+                    theme = self.random_theme if random_remember else choice(self.themes)
                 else:
-                    if theme not in themes:
+                    if theme not in self.themes:
                         raise(
                             TypeError(
                                 "datepicker.picker(theme=) must be one" +
@@ -86,9 +76,9 @@ class datepicker(object):
                         ISSUE 1 : windows os path
                         if windows used and windows path not used.
                     """
-                    if osName == 'nt':
+                    if osName == 'nt' or self.testing:
                         order = ['/', '\\']
-                        if rev:
+                        if rev or self.testing:
                             order.reverse()
                         for linkIndex, link in enumerate(links):
                             links[linkIndex] = link.replace(order[0], order[1])

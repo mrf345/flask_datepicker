@@ -1,0 +1,5 @@
+flask
+pytest
+pytest-cov
+coverage
+python-coveralls
