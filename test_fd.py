@@ -109,7 +109,11 @@ def test_picker_min_max_dates(client):
             [
                 (
                     '("' if i == 0 else '"'
-                ) + d + (
+                ) + (
+                    str(
+                        int(d) - 1
+                    ).zfill(2) if i == 1 else d
+                ) + (
                     '")' if i == 2 else '"'
                 ) for i, d in enumerate(
                     date.split('-')

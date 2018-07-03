@@ -133,7 +133,7 @@ class datepicker(object):
         for s in [maxDate, minDate]:
             ss = s.split('-') if len(s.split('-')) == 3 else []
             ss = 'new Date("%s","%s","%s")' % (ss[0],
-                                               ss[1],
+                                               str(int(ss[1]) - 1).zfill(2),
                                                ss[2]) if ss != [] else "null"
             date_limits.append(ss)
         return Markup(" ".join(['<script>',
