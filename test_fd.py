@@ -54,6 +54,28 @@ def picker():
         toMimic("{{ datepicker.picker() }}")
     )
 
+@app.route('/min_max/<min>/<max>')
+def minMax(min, max):
+    return render_template(
+        toMimic(
+            """
+            <html>
+                <head>
+                    <script
+                    src="https://code.jquery.com/jquery-3.3.1.min.js"
+                    ></script>
+                    {{ datepicker.loader() }}
+                    {{ datepicker.picker(minDate='%s', maxDate='%s') }}
+                </head>
+                <body>
+                    <input class='datepicker'>
+                </body>
+            </html>
+            """ % (
+                min, max
+            )
+        )
+    )
 
 @fixture
 def client():
@@ -75,7 +97,25 @@ def test_loader_template_links(client):
 
 def test_picker_template_script(client):
     resp = client.get('/picker').data
-    assert 'var toF = this; $(this).datepicker({'.encode('utf8') in resp 
+    assert 'var toF = this; $(this).datepicker({'.encode('utf8') in resp
+
+def test_picker_min_max_dates(client):
+    dates = ['2018-07-03', '2019-07-03']
+    resp = client.get('/min_max/%s/%s' % (
+        dates[0], dates[1]
+    )).data
+    for date in dates:
+        assert ','.join(
+            [
+                (
+                    '("' if i == 0 else '"'
+                ) + d + (
+                    '")' if i == 2 else '"'
+                ) for i, d in enumerate(
+                    date.split('-')
+                )
+            ]
+        ).encode('utf8') in resp
 
 def test_loader_local_links(client):
     temps = [ 'static/' + l for l in [
@@ -123,3 +163,6 @@ def test_datepicker_false_input(client):
         ).picker(id=200)
     except Exception as e:
         assert type(e) == TypeError
+
+if __name__ == '__main__':
+    app.run(port=8080, debug=True)
