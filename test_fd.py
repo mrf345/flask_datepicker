@@ -65,15 +65,13 @@ def minMax(min, max):
                     src="https://code.jquery.com/jquery-3.3.1.min.js"
                     ></script>
                     {{ datepicker.loader() }}
-                    {{ datepicker.picker(minDate='%s', maxDate='%s') }}
+                    {{ datepicker.picker(minDate=10, maxDate=10) }}
                 </head>
                 <body>
                     <input class='datepicker'>
                 </body>
             </html>
-            """ % (
-                min, max
-            )
+            """
         )
     )
 
@@ -169,4 +167,4 @@ def test_datepicker_false_input(client):
         assert type(e) == TypeError
 
 if __name__ == '__main__':
-    app.run(port=8080, debug=True)
+    app.run(port=8080, debug=False)

@@ -3,15 +3,20 @@ from os import path, name as osName
 from random import choice
 # Fixing file not found for py2
 from sys import version_info
-if version_info.major == 2:
+if version_info[0] == 2:
     FileNotFoundError = IOError
+from static_parameters import (
+    function_parameters, class_parameters
+)    
 
+@class_parameters(function_parameters)
 class datepicker(object):
     def __init__(self, app=None, local=[], testing=False):
         """
         Initiating the extension and seting up important variables
         @param: app flask application instance (default None).
         @param: local contains Jquery UI local sourcecode files (default [])
+        ((local:list))((testing:bool))
         """
         self.testing = testing
         self.app = app
@@ -49,6 +54,7 @@ class datepicker(object):
         for Jquery UI (default True).
         @param: random_remember to remember the random choice, unless you want
         it to load new theme with each reload (default True).
+        ((random_remember:bool))
         """
         html = ""  # html tags will end-up here
         for i, n in enumerate(('js', 'css')):
@@ -119,15 +125,8 @@ class datepicker(object):
         (default: '').
         @param: btnsId id assigned to instigating buttons if needed 
         (default '.btnId')
+        ((id:str))((dateFormat:str))((maxDate:str))((minDate:str))((btnsId:str))
         """
-        for h, a in {'id': id,
-                     'dateFormat': dateFormat,
-                     'maxDate': maxDate,
-                     'minDate': minDate,
-                     'btnsId': btnsId
-                     }.items():
-            if not isinstance(a, str):
-                raise(TypeError("datepicker.picker(%s) takes string" % h))
         date_limits = []
         # trying to iterate with fail safe, without any more raises
         for s in [maxDate, minDate]:

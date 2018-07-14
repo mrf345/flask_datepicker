@@ -1,4 +1,5 @@
 flask
+static_parameters
 pytest
 pytest-cov
 coverage

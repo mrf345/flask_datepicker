@@ -28,7 +28,8 @@ setup(
     platforms='any',
     install_requires=[
         'Flask',
-        'Flask-Bootstrap'
+        'Flask-Bootstrap',
+        'static_parameters'
     ],
     keywords=['flask', 'extension', 'date', 'picker', 'jquery-ui',
               'datepicker'],
