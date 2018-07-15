@@ -1,13 +1,13 @@
 from flask import Markup
+from static_parameters import (
+    function_parameters, class_parameters
+)
 from os import path, name as osName
 from random import choice
 # Fixing file not found for py2
 from sys import version_info
 if version_info[0] == 2:
     FileNotFoundError = IOError
-from static_parameters import (
-    function_parameters, class_parameters
-)    
 
 @class_parameters(function_parameters)
 class datepicker(object):
@@ -16,7 +16,7 @@ class datepicker(object):
         Initiating the extension and seting up important variables
         @param: app flask application instance (default None).
         @param: local contains Jquery UI local sourcecode files (default [])
-        ((local:list))((testing:bool))
+        ((testing:bool))
         """
         self.testing = testing
         self.app = app
@@ -54,7 +54,6 @@ class datepicker(object):
         for Jquery UI (default True).
         @param: random_remember to remember the random choice, unless you want
         it to load new theme with each reload (default True).
-        ((random_remember:bool))
         """
         html = ""  # html tags will end-up here
         for i, n in enumerate(('js', 'css')):

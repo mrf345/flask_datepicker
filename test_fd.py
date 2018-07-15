@@ -39,7 +39,7 @@ def toMimic(data, static=False):
 
 
 app = Flask(__name__)
-eng = datepicker(app)
+eng = datepicker(app, local=[])
 
 
 @app.route('/loader')
@@ -65,13 +65,13 @@ def minMax(min, max):
                     src="https://code.jquery.com/jquery-3.3.1.min.js"
                     ></script>
                     {{ datepicker.loader() }}
-                    {{ datepicker.picker(minDate=10, maxDate=10) }}
+                    {{ datepicker.picker(minDate='%s', maxDate='%s') }}
                 </head>
                 <body>
                     <input class='datepicker'>
                 </body>
             </html>
-            """
+            """ % (min, max)
         )
     )
 
