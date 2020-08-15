@@ -3,7 +3,7 @@ from flask import Markup, url_for
 from random import choice
 
 from flask_datepicker.constants import THEMES, JS_REMOTE, CSS_REMOTE, WINDOWS
-from flask_datepicker.utils import find
+from flask_datepicker.utils import find, cache_output
 
 
 class datepicker(object):
@@ -42,6 +42,7 @@ class datepicker(object):
         def _inject_vars():
             return dict(datepicker=self)
 
+    @cache_output
     def __resolve_local(self, absolute=False):
         '''Check if static folder is `self.__local` and resolve it.
 
