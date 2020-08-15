@@ -1,15 +1,15 @@
-def find(function, items):
+def find(validator, items):
     '''Utility to find the first matching item in a list.
 
     Parameters
     ----------
-    function : callable
+    validator : callable
         function that returns bool to check if the passed item matches.
     items : list
         list of items to search.
     '''
     for item in items:
-        if function(item):
+        if validator(item):
             return item
 
 
