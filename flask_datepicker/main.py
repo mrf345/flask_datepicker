@@ -101,7 +101,7 @@ class datepicker(object):
         links = self.__local or []
         version = version or self.__version
         theme = theme or (self.__random_theme if random_remember else choice(THEMES))
-        files_not_exist = not all([os.path.isfile(f) for f in self.__resolved_local_abs])
+        files_not_exist = not all(os.path.isfile(f) for f in self.__resolved_local_abs)
         links = [CSS_REMOTE % (version, theme), JS_REMOTE % version]\
             if files_not_exist or not links else self.__resolved_local_rel
 
