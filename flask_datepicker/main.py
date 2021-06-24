@@ -161,7 +161,7 @@ class datepicker(object):
                                 '$("%s").each(function () {' % id,
                                 'var toF = this; $(this).datepicker({',
                                 'dateFormat: "%s",' % dateFormat,
-                                'changeYear: "%s",'%year,
+                                'changeYear: %s,'%year,
                                 'changeMonth: %s,'%month,
                                 'maxDate: %s,' % date_limits[0],
                                 'minDate: %s});' % date_limits[1],
