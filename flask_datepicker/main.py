@@ -112,7 +112,7 @@ class datepicker(object):
                                  '<script src="%s"></script>' % js]))
 
     def picker(self, id='.datepicker', dateFormat='yy-mm-dd',
-               maxDate='', minDate='', btnsId='.btnId'):
+               maxDate='', minDate='', btnsId='.btnId',changeMonth=False,changeYear=False):
         '''Assign a datepicker to a specific HTML element.
 
         Parameters
@@ -127,12 +127,26 @@ class datepicker(object):
             minimum date to allow selecting, by default ''
         btnsId : str, optional
             additional css selector to toggle datepicker's visibility, by default '.btnId'
+        changeMonth : boolean, optional
+            add functionality to change month from dropdown
+        changeMonth : boolean, optional
+            add functionality to change year from dropdown
 
         Returns
         -------
         str
             Safe HTML content to initiate and assign a new datepicker.
         '''
+        if changeMonth:
+            month="true"
+        else:
+            month="false"
+                    
+        if changeYear:
+            year="true"
+        else:
+            year="false"
+        
         date_limits = []
         for d in [maxDate, minDate]:
             ss = d.split('-') if len(d.split('-')) == 3 else []
@@ -147,6 +161,8 @@ class datepicker(object):
                                 '$("%s").each(function () {' % id,
                                 'var toF = this; $(this).datepicker({',
                                 'dateFormat: "%s",' % dateFormat,
+                                'changeYear: "%s",'%year,
+                                'changeMonth: %s,'%month,
                                 'maxDate: %s,' % date_limits[0],
                                 'minDate: %s});' % date_limits[1],
                                 'if (EL.length > 0) { $(EL[0]).click(',
