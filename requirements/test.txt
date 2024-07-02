@@ -3,5 +3,4 @@ pytest
 pytest-runner
 pytest-cov
 coverage
-python-coveralls
 flake8
