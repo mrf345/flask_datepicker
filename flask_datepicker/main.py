@@ -1,6 +1,8 @@
 import os
-from flask import Markup, url_for
 from random import choice
+
+from flask import url_for
+from markupsafe import Markup
 
 from flask_datepicker.constants import THEMES, JS_REMOTE, CSS_REMOTE, WINDOWS
 from flask_datepicker.utils import find, cache_output
@@ -20,7 +22,7 @@ class datepicker(object):
             jQuery UI version to fetch remotely, by default '1.12.1'
         '''
         self.__app = app
-        self.__local = local
+        self._local = local
         self.__random_theme = choice(THEMES)
         self.__version = version
 
@@ -43,7 +45,7 @@ class datepicker(object):
             return dict(datepicker=self)
 
     @cache_output
-    def __resolve_local(self, absolute=False):
+    def _get_resolved_local(self, absolute=False):
         '''Check if static folder is `self.__local` and resolve it.
 
         Returns
@@ -53,7 +55,7 @@ class datepicker(object):
         '''
         folder = self.__app.static_folder
         folder_name = os.path.basename(folder)
-        local = self.__local or []
+        local = self._local or []
         resolved_local = []
 
         for link in local:
@@ -75,11 +77,11 @@ class datepicker(object):
 
     @property
     def __resolved_local_abs(self):
-        return self.__resolve_local(absolute=True)
+        return self._get_resolved_local(absolute=True)
 
     @property
     def __resolved_local_rel(self):
-        return self.__resolve_local()
+        return self._get_resolved_local()
 
     def loader(self, theme=None, random_remember=False, version='1.12.1'):
         '''Load jQuery UI assets and customize them, if wanted.
@@ -98,7 +100,7 @@ class datepicker(object):
         str
             Safe HTML content to load jQuery UI assets.
         '''
-        links = self.__local or []
+        links = self._local or []
         version = version or self.__version
         theme = theme or (self.__random_theme if random_remember else choice(THEMES))
         files_not_exist = not all(os.path.isfile(f) for f in self.__resolved_local_abs)
@@ -112,7 +114,7 @@ class datepicker(object):
                                  '<script src="%s"></script>' % js]))
 
     def picker(self, id='.datepicker', dateFormat='yy-mm-dd',
-               maxDate='', minDate='', btnsId='.btnId',changeMonth=False,changeYear=False):
+               maxDate='', minDate='', btnsId='.btnId', changeMonth=False, changeYear=False):
         '''Assign a datepicker to a specific HTML element.
 
         Parameters
@@ -137,17 +139,10 @@ class datepicker(object):
         str
             Safe HTML content to initiate and assign a new datepicker.
         '''
-        if changeMonth:
-            month="true"
-        else:
-            month="false"
-                    
-        if changeYear:
-            year="true"
-        else:
-            year="false"
-        
+        month = "true" if changeMonth else "false"
+        year = "true" if changeYear else "false"
         date_limits = []
+
         for d in [maxDate, minDate]:
             ss = d.split('-') if len(d.split('-')) == 3 else []
             date_limits.append('new Date("%s","%s","%s")' % (
@@ -161,8 +156,8 @@ class datepicker(object):
                                 '$("%s").each(function () {' % id,
                                 'var toF = this; $(this).datepicker({',
                                 'dateFormat: "%s",' % dateFormat,
-                                'changeYear: %s,'%year,
-                                'changeMonth: %s,'%month,
+                                'changeYear: %s,' % year,
+                                'changeMonth: %s,' % month,
                                 'maxDate: %s,' % date_limits[0],
                                 'minDate: %s});' % date_limits[1],
                                 'if (EL.length > 0) { $(EL[0]).click(',

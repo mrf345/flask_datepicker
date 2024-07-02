@@ -1,11 +1,10 @@
-from pytest import fixture
+import pytest
 
-from flask_datepicker import datepicker
-from .setup import app
+from .setup import app, extension
 from .mockers import mock_static
 
 
-@fixture
+@pytest.fixture
 def client():
     app.config['TESTING'] = True
     app.config['STATIC_FOLDER'] = 'static'
@@ -52,18 +51,16 @@ def test_picker_min_max_dates(client):
 
 def test_loader_local_links(client):
     local_links = [mock_static('css'), mock_static('js')]
-    html = datepicker(app, local=local_links).loader()
+    extension._local = local_links
+    extension._get_resolved_local.__dict__.clear()
+    html = extension.loader()
 
     for link in local_links:
         assert link in html
 
 
 def test_loader_local_links_win_false(client):
-    try:
-        datepicker(app, local=['200', '200']).loader()
-    except Exception as e:
-        assert type(e) == globals().get('FileNotFoundError', IOError)
-
-
-if __name__ == '__main__':
-    app.run(port=8080, debug=False)
+    with pytest.raises(Exception) as e:
+        extension._local = ['200', '200']
+        extension.loader()
+        assert type(e) is globals().get('FileNotFoundError', IOError)
