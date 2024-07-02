@@ -4,7 +4,7 @@ from flask_datepicker import datepicker
 from .mockers import mock_template
 
 app = Flask(__name__)
-eng = datepicker(app, local=[])
+extension = datepicker(app, local=[])
 
 
 @app.route('/loader')
