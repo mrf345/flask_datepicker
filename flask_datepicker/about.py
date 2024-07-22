@@ -1,4 +1,4 @@
-__version__ = '0.15'
+__version__ = '0.16'
 __doc__ = 'A Flask extension for jQueryUI DatePicker.'
 __license__ = 'MIT'
 __author__ = 'Mohamed Feddad'

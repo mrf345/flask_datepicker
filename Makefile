@@ -1,6 +1,6 @@
 test: install
 	pytest
-lint:
+lint: install
 	flake8
 run: install
 	python tests/integration.py
@@ -11,4 +11,4 @@ release: install clean
 clean:
 	rm -rf dist build *.egg-info .eggs
 install:
-	pip install --quiet -r requirements/main.txt
+	pip install --quiet -r requirements/dev.txt

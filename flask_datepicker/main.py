@@ -8,7 +8,7 @@ from flask_datepicker.constants import THEMES, JS_REMOTE, CSS_REMOTE, WINDOWS
 from flask_datepicker.utils import find, cache_output
 
 
-class datepicker(object):
+class Datepicker(object):
     def __init__(self, app=None, local=[], version='1.12.1'):
         '''Extension to help with loading and using jQueryUI Datepicker.
 
